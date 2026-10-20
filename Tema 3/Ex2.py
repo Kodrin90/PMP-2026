@@ -22,3 +22,12 @@ cpd_D = TabularCPD(variable='D', variable_card=2,
                    evidence=['B', 'T'], evidence_card=[2, 2])
 
 model.add_cpds(cpd_B, cpd_T, cpd_X, cpd_D)
+infer = VariableElimination(model)
+
+# b) 
+prob_B = infer.query(variables=['B'], evidence={'T': 1, 'D': 1})
+print("P(B=1 | T=1, D=1) =", prob_B.values[1])
+
+# c) 
+prob_X = infer.query(variables=['X'], evidence={'B': 0})
+print("P(X=1 | B=0) =", prob_X.values[1])
